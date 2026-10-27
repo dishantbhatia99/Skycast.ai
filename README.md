@@ -1,28 +1,19 @@
-# SkyCast AI — Pro refresh
+# SkyCast AI — Own-site Sky Map + Sky Preview update
 
-This package is a mobile-first replacement for the main `index.html` plus a `skymap.html` page.
+## Files
+- `index.html`: replacement home page entry point. It links to the two new on-site tools.
+- `skymap.html`: an interactive SkyCast canvas map with drag rotation, zoom, layers, object finder UI, GPS coordinates, date/time and optional weather.
+- `sky-preview.html`: a sky-appearance illustration tool and prompt builder for an external AI image-generation model.
 
-## What's improved
-- Responsive dark glass-style layout for phones and desktop.
-- City search and optional GPS location.
-- Live current conditions and 7-day forecast using Open-Meteo's public forecast/geocoding endpoints.
-- Sunset outlook score based on cloud cover, visibility and rain probability. It is an estimate, not a guarantee.
-- Sky visualiser with sunrise/noon/sunset/night presets and a save-as-PNG button. This is a local illustration, **not** an AI-generated photograph.
-- Approximate Moon phase label.
-- Sky Map page links to the full Stellarium Web app. Embedding may be blocked by some browsers, so the page also explains how to open it directly.
-- No Gemini API key is needed for these features.
+## Important honesty note
+The sky map is an original SkyCast canvas visualisation with a generated star field and illustrative constellation lines. It is **not** the full Stellarium catalogue, and object positions are not yet precision astronomy ephemerides. It does not redirect the user to the Stellarium website.
+The sky-preview is an illustration and prompt builder, not true AI photo generation. Real AI image generation needs an image API. Do not put a private API key into GitHub Pages JavaScript; visitors can inspect it. To add true generation securely, use a serverless backend/proxy and a provider account/API key.
 
-## Upload using your phone
-1. Download and extract `skycast-pro-update.zip`.
-2. Open your repository: https://github.com/dishantbhatia99/skycast
-3. Open `index.html` → Edit (pencil) → replace the entire file with the new `index.html` → Commit changes.
-4. Add or replace `skymap.html` at the repository root with the file in this ZIP.
-5. Wait a minute, then open https://dishantbhatia99.github.io/skycast/ and refresh the page. If old content remains, clear the browser cache or open in a private tab.
+## Install on phone via GitHub
+1. Open the ZIP and extract it.
+2. Open the repo: https://github.com/dishantbhatia99/skycast
+3. For `skymap.html` and `sky-preview.html`: use **Add file → Create new file**, enter the exact filename, paste the corresponding file's complete code, then commit.
+4. To replace the home page, edit `index.html`, replace the full contents with this package's `index.html`, and commit.
+5. Visit https://dishantbhatia99.github.io/skycast/ and hard refresh or use an incognito tab.
 
-## Notes
-- GitHub Pages is static hosting. This code does not need a server or build step.
-- Weather/geocoding require internet access.
-- The GPS button needs HTTPS (GitHub Pages is HTTPS) and browser location permission.
-- Forecast endpoints can occasionally be unavailable or rate-limited.
-- Stellarium is a third-party website. The map itself and its sensor behavior are controlled by Stellarium/browser, not this wrapper.
-- The package intentionally does not include or request a secret API key.
+Weather comes from the public Open-Meteo API and needs internet access. GPS needs browser permission.
