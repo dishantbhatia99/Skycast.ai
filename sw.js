@@ -1,6 +1,6 @@
 // Caches the app shell. Weather and image requests always go to the network.
-const CACHE = 'skycast-v2';
-const SHELL = ['./', './index.html', './manifest.json', './skymap.html', './astro.js', './icon-192.png', './icon-512.png'];
+const CACHE = 'skycast-v3';
+const SHELL = ['./', './index.html', './manifest.json', './skymap.html', './astro.js', './astro2.js', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });

@@ -1,67 +1,224 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080d1b">
-<meta name="description" content="SkyCast AI — weather forecasts, sunset outlook, sky visualisation and stargazing tools.">
-<title>SkyCast AI — Understand the Sky</title>
+<meta name="theme-color" content="#090d19">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>SkyCast AI</title>
 <style>
-:root{color-scheme:dark;--bg:#080d1b;--panel:#111a2d;--panel2:#0c1425;--line:#293752;--text:#f4f7ff;--muted:#9eacc8;--gold:#ffbf7a;--pink:#f0789b;--blue:#86a8ff}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#1b2c50 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:18px 14px 100px}.app{max-width:760px;margin:auto}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 22px}.brand{font-weight:850;font-size:25px;letter-spacing:-1px}.brand span{color:var(--gold)}.tag{color:var(--muted);font-size:12px}.pill{border:1px solid var(--line);background:#111a2d;border-radius:99px;padding:7px 10px;color:#c9d6f2;font-size:12px}
-h1{font-size:clamp(27px,6vw,40px);line-height:1.1;letter-spacing:-1.2px;margin:10px 0}.hero-copy{color:var(--muted);max-width:520px;margin:0 0 18px}.search{display:flex;gap:8px;margin:18px 0}.search input{flex:1;min-width:0}
-input,select{background:#0a1222;color:var(--text);border:1px solid #34425e;border-radius:13px;padding:13px 14px;font:inherit;min-width:0}button,.btn{border:0;border-radius:13px;padding:12px 15px;background:linear-gradient(120deg,#ffca8b,#f58aa1);color:#251421;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px}button:active{transform:scale(.98)}button.secondary,.btn.secondary{background:#1a2740;color:#e6edff;border:1px solid #34425e}.card{background:linear-gradient(145deg,rgba(21,32,54,.96),rgba(12,20,36,.98));border:1px solid var(--line);border-radius:23px;padding:18px;margin:14px 0;box-shadow:0 16px 45px #0002}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:750}.location{font-size:20px;font-weight:800;margin:4px 0}.bigscore{font-size:52px;line-height:1.1;font-weight:900;letter-spacing:-2px;color:var(--gold);margin:8px 0}.bigscore small{font-size:15px;color:var(--muted);letter-spacing:0}.summary{color:#c6d1e8;margin:0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:16px}.metric{background:var(--panel2);border:1px solid #202e47;border-radius:15px;padding:13px}.metric span{display:block;color:var(--muted);font-size:12px}.metric strong{display:block;font-size:18px;margin-top:4px;overflow-wrap:anywhere}.section-title{font-size:21px;letter-spacing:-.5px;margin:27px 2px 10px}.section-sub{font-size:13px;color:var(--muted);margin:-4px 2px 12px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.chip{border:1px solid var(--line);border-radius:99px;padding:7px 11px;background:#0e1729;color:#dce6ff;font-size:12px;cursor:pointer}.forecast-day{display:grid;grid-template-columns:85px 1fr auto;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid #25324a;font-size:13px}.forecast-day:last-child{border:0}.forecast-day .muted{color:var(--muted)}.forecast-day strong{font-size:14px}.bar{height:7px;border-radius:99px;background:#091121;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ffcc8e,#f0789b,#9a8bff);border-radius:99px}
-.preview{overflow:hidden;padding:0}.preview-head{padding:17px 18px 0}.preview-stage{position:relative;margin:14px;height:240px;border-radius:17px;overflow:hidden;background:#172442}.preview-stage canvas{display:block;width:100%;height:100%}.preview-caption{position:absolute;left:14px;right:14px;bottom:13px;text-shadow:0 2px 9px #000;pointer-events:none}.preview-caption strong{display:block;font-size:19px}.preview-caption span{font-size:12px;color:#f0eaff}.time-buttons{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.time-buttons button{flex:1;min-width:70px;padding:10px 8px;font-size:12px}.notice{color:var(--muted);font-size:12px;line-height:1.5}.error{color:#ffb4b4;font-size:13px;margin-top:8px}.map-card{display:flex;align-items:center;justify-content:space-between;gap:15px}.map-icon{font-size:34px}.map-card p{color:var(--muted);font-size:13px;margin:4px 0 0}.brand-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 0}.bottom{position:fixed;z-index:9;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:3px;background:#080d1bf2;border-top:1px solid #27344c;padding:8px 5px calc(8px + env(safe-area-inset-bottom))}.bottom button{flex:1;max-width:150px;padding:9px 2px;background:transparent;color:#aebbd5;font-size:11px}
-a{color:inherit}@media(min-width:650px){body{padding-top:28px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.preview-stage{height:320px}.card{padding:22px}.preview{padding:0}}@media(max-width:430px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.forecast-day{grid-template-columns:68px 1fr}.forecast-day .right{grid-column:2}.search button{padding:12px}.map-card{align-items:flex-start;flex-direction:column}.map-card .btn{width:100%}}
-</style>
-</head>
-<body><main class="app">
-<header><div><div class="brand">🌤️ SkyCast <span>AI</span></div><div class="tag">Understand the Sky. Imagine the Possibilities.</div></div><span class="pill">LIVE WEATHER</span></header>
-<section>
-<div class="eyebrow">Your sky, at a glance</div><h1>Catch the sky at its<br><span style="color:var(--gold)">most beautiful.</span></h1>
-<p class="hero-copy">Check local weather, explore a sunset outlook, preview the sky at different times, and plan your next stargazing session.</p>
-<div class="search"><input id="city" value="Ambarnath" placeholder="Search a city" aria-label="Search city"><button id="searchBtn">Search</button></div>
-<div class="row"><button class="secondary" id="gpsBtn">◎ Use my location</button><span class="notice" id="status" role="status">Loading forecast…</span></div><div id="saved" class="chips"></div>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#090d19;color:#f5f7ff;font-family:Arial,Helvetica,sans-serif;padding:20px 15px 100px}
+.app{max-width:480px;margin:auto}
+header{margin-bottom:20px}
+.logo{font-size:23px;font-weight:800;letter-spacing:-1px}.logo span{color:#ffad66}
+.sub{color:#9aa7c5;font-size:13px;margin-top:7px}
+.row{display:flex;gap:8px;margin:14px 0}
+input,select{min-width:0;flex:1;background:#141c2e;color:#fff;border:1px solid #303950;border-radius:12px;padding:13px;font-size:14px}
+button{border:0;border-radius:12px;padding:12px 15px;background:#ffad66;color:#241408;font-weight:bold;cursor:pointer;transition:transform .15s}
+button:active{transform:scale(.97)}button:disabled{opacity:.5}
+button.ghost{background:#1b2334;color:#ffad66}
+:focus-visible{outline:2px solid #ffca9f;outline-offset:2px}
+.card{background:linear-gradient(145deg,#18243a,#101625);border:1px solid #28354d;border-radius:22px;padding:20px;margin-bottom:16px}
+.label{font-size:12px;color:#aab7d2;letter-spacing:1px}
+.score{font-size:48px;font-weight:800;color:#ffbd83}.score small{font-size:14px;color:#aab7d2}
+.d{color:#aab7d2;font-size:13px;line-height:1.6;margin-top:10px}
+h2.t{font-size:18px;margin:22px 0 12px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.w{background:#0d1423;border-radius:13px;padding:14px}.w span{display:block;font-size:12px;color:#9aa7c5;margin-bottom:8px}.w strong{font-size:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#1b2334;color:#ffca9f;border-radius:20px;padding:8px 12px;font-size:12px}
+.day{display:flex;justify-content:space-between;gap:8px;padding:11px 0;border-bottom:1px solid #26334a;font-size:13px}.day:last-child{border:0}
+.day b{min-width:70px}.day span{color:#9aa7c5;text-align:right}
+.gen{width:100%;padding:16px;font-size:15px;background:linear-gradient(90deg,#ffad66,#d85c70,#8a5fc0);color:#fff}
+.bar{height:6px;background:#0d1423;border-radius:6px;overflow:hidden;margin-top:14px;display:none}
+.bar i{display:block;height:100%;width:40%;background:#ffad66;border-radius:6px;animation:mv 1.2s infinite ease-in-out}
+@keyframes mv{0%{margin-left:-40%}100%{margin-left:100%}}
+#img{width:100%;border-radius:16px;margin-top:14px;display:none}
+.err{color:#ffb4b4;font-size:13px;line-height:1.5;margin-top:12px}
+.ok{color:#9ff1c1}
+.ig{display:flex;align-items:center;gap:12px;text-decoration:none;color:#f5f7ff;background:#131c2d;border:1px solid #26334a;border-radius:16px;padding:12px 14px;margin-top:10px}
+.ig .ico{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;background:linear-gradient(45deg,#ffad66,#d85c70 55%,#684d85)}
+.ig svg{width:22px;height:22px}.ig b{display:block;font-size:14px}.ig small{display:block;font-size:11px;color:#9aa7c5;margin-top:3px}
+.brand{text-align:center;margin-top:26px;padding-top:20px;border-top:1px solid #263149}.brand .m{color:#ffca9f;font-size:13px;margin-top:8px}.brand .c{font-size:11px;color:#8795b4;margin-top:8px}
+footer{position:fixed;bottom:0;left:0;right:0;background:rgba(9,13,25,.96);border-top:1px solid #263149;display:flex;padding:10px 4px calc(10px + env(safe-area-inset-bottom,0px));z-index:5}
+footer button{flex:1;background:transparent;color:#aab7d2;font-size:11px;padding:10px 2px}
+.tq{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tq button{padding:9px 11px;font-size:12px}.tq button.on{background:#ffad66;color:#241408}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="app">
+<header><div class="logo">🌤️ SkyCast <span>AI</span></div><div class="sub">Understand the Sky. Imagine the Possibilities.</div></header>
+
+<div class="row"><input id="city" value="Ambarnath" placeholder="Enter city" aria-label="City"><button onclick="search()">Search</button></div>
+<div id="saved" class="chips"></div>
+
+<section id="home" class="card" style="margin-top:16px">
+  <div class="label" id="place">Search a city to begin</div>
+  <div class="row"><select id="date" aria-label="Forecast date" onchange="render()"></select><button class="ghost" id="save" onclick="toggleSave()">♡ Save</button></div>
+  <div class="label">Sunset beauty estimate</div>
+  <div class="score"><span id="score">--</span><small>/100</small></div>
+  <p class="d" id="msg">Loading…</p>
+  <div class="g">
+    <div class="w"><span>🌇 Sunset</span><strong id="ss">--</strong></div>
+    <div class="w"><span>🌄 Sunrise</span><strong id="sr">--</strong></div>
+    <div class="w"><span>☁️ Cloud cover</span><strong id="cl">--</strong></div>
+    <div class="w"><span>💧 Humidity</span><strong id="hu">--</strong></div>
+    <div class="w"><span>👁️ Visibility</span><strong id="vi">--</strong></div>
+    <div class="w"><span>🌧️ Rain chance</span><strong id="pr">--</strong></div>
+  </div>
+  <p class="d">Weather: Open-Meteo.com. The score is a simple estimate from cloud cover, visibility and rain, not a guarantee.</p>
 </section>
-<section class="card" id="home">
-<div class="eyebrow">Sunset outlook · estimate</div><div class="location" id="place">Finding your sky…</div>
-<div class="bigscore"><span id="score">--</span><small>/100</small></div><p class="summary" id="summary">Weather conditions are loading.</p><div class="bar"><i id="scorebar" style="width:0%"></i></div>
-<div class="grid">
-<div class="metric"><span>🌇 Sunset</span><strong id="sunset">--</strong></div><div class="metric"><span>🌄 Sunrise</span><strong id="sunrise">--</strong></div><div class="metric"><span>☁️ Cloud cover</span><strong id="cloud">--</strong></div><div class="metric"><span>💧 Humidity</span><strong id="humidity">--</strong></div><div class="metric"><span>👁️ Visibility</span><strong id="visibility">--</strong></div><div class="metric"><span>🌧️ Rain chance</span><strong id="rain">--</strong></div>
-</div><p class="notice" style="margin-top:13px">Sunset score is a simple weather-based estimate, not a guarantee of actual colours. Weather data from Open-Meteo.</p><div class="row" style="margin-top:14px"><button class="secondary" id="saveBtn">♡ Save city</button><button class="secondary" id="refreshBtn">↻ Refresh</button></div>
-</section>
-<h2 class="section-title" id="preview">Sky Preview</h2><p class="section-sub">A local visualisation guided by the selected time and forecast conditions.</p>
-<section class="card preview"><div class="preview-head"><div class="eyebrow">Atmosphere visualiser</div><div class="row" style="margin-top:8px"><label class="notice" for="previewTime">Preview time</label><input id="previewTime" type="time" value="18:30" style="max-width:145px"></div>
-<div class="time-buttons"><button class="secondary" data-time="sunrise">🌄 Sunrise</button><button class="secondary" data-time="noon">☀️ Noon</button><button data-time="sunset">🌇 Sunset</button><button class="secondary" data-time="night">🌙 Night</button></div></div>
-<div class="preview-stage"><canvas id="skyCanvas" aria-label="Illustrated sky preview"></canvas><div class="preview-caption"><strong id="sceneTitle">Golden-hour sky</strong><span id="sceneDesc">A visualisation based on the selected time.</span></div></div>
-<div style="padding:0 18px 18px"><p class="notice">This is a generated illustration, not a photograph or an exact AI prediction of the sky. Real cloud formations and colours can differ.</p><div class="row" style="margin-top:10px"><button id="downloadPreview" class="secondary">⬇ Save preview</button><button id="redraw" class="secondary">↻ Redraw</button></div></div></section>
-<h2 class="section-title" id="forecast">7-day forecast</h2><p class="section-sub">Daily temperature range, rain chance and sunset time.</p><section class="card" id="days"><p class="notice">Loading forecast…</p></section>
-<h2 class="section-title" id="stargazing">Moon & stargazing</h2><section class="card"><div class="eyebrow">Moon phase estimate</div><div class="location" id="moonName">Calculating…</div><p class="summary" id="moonText">The moon phase is calculated locally from the date.</p><div class="grid"><div class="metric"><span>🌔 Illumination</span><strong id="moonIllum">--</strong></div><div class="metric"><span>📅 Forecast date</span><strong id="todayDate">--</strong></div><div class="metric"><span>✨ Stargazing</span><strong id="starTip">--</strong></div></div></section>
-<h2 class="section-title" id="map">Sky Map</h2><section class="card map-card"><div><div class="map-icon">🌌</div><strong>Explore stars, planets & constellations</strong><p>Open the SkyCast interactive sky map inside this website. For best results, allow location and use landscape mode if needed.</p></div><a class="btn" href="./skymap.html">Open SkyCast 3D Sky Map ↗</a></section>
-<h2 class="section-title" id="about">About SkyCast</h2><section class="card"><p class="summary">Created & developed by <strong>Dishant Bhatia</strong>.</p><div class="row" style="margin-top:13px"><a class="btn secondary" href="https://www.instagram.com/skycast.ai/" target="_blank" rel="noopener noreferrer">Instagram · SkyCast AI</a><a class="btn secondary" href="https://www.instagram.com/dshnt.x/" target="_blank" rel="noopener noreferrer">Creator profile</a></div></section>
-<div class="brand-footer">Made with ❤️ by Dishant Bhatia · © 2026 SkyCast AI<br>Weather source: Open-Meteo · Forecast visualisations are estimates.</div>
-</main>
-<nav class="bottom" aria-label="Quick navigation"><button data-go="home">⌂ Home</button><button data-go="forecast">☀ Forecast</button><button data-go="preview">🌅 Preview</button><button data-go="map">🌌 Sky Map</button><button data-go="about">ⓘ About</button></nav>
+
+<h2 class="t">AI Sky Preview</h2>
+<div class="card">
+  <div class="label">Preview time (local time of the city)</div>
+  <div class="row" style="margin:8px 0 0"><input type="time" id="gtime" aria-label="Preview time" onchange="setT('custom')"></div>
+  <div class="tq"><button id="t-sunrise" onclick="setT('sunrise')">🌄 Sunrise</button><button id="t-noon" onclick="setT('noon')">☀️ Noon</button><button id="t-sunset" class="on" onclick="setT('sunset')">🌇 Sunset</button><button id="t-night" onclick="setT('night')">🌙 Night</button></div>
+  <button class="gen" id="gen" onclick="generate()">✨ Generate AI Sky Preview</button>
+  <div class="bar" id="bar"><i></i></div>
+  <div class="d" id="gmsg"></div>
+  <img id="img" alt="AI generated sunset visualisation">
+  <p class="d" id="cap" style="display:none"><b>AI visualisation — not an exact prediction of the real sky.</b></p>
+  <div class="row"><a id="dl" download="skycast-sunset.jpg"><button class="ghost" id="dlb" style="display:none">⬇ Download</button></a><button class="ghost" id="retry" style="display:none" onclick="generate()">↻ Retry</button></div>
+</div>
+
+<h2 class="t" id="forecast">7-day forecast</h2>
+<div class="card" id="days"><p class="d">No data yet.</p></div>
+
+<h2 class="t" id="sky">Sky Map</h2>
+<div class="card"><p class="d" style="margin:0 0 12px">Stellarium-style sky map: point your phone at the sky to see planets, thousands of stars, constellations and the Milky Way in 360° with the gyroscope. Travel to any date, and see eclipses, meteor showers, conjunctions and more.</p><a id="skylink" href="skymap.html" style="text-decoration:none"><button class="gen">🔭 Open Sky Map &amp; Events</button></a></div>
+<h2 class="t" id="moon">Moon &amp; Stargazing</h2>
+<div class="card"><div class="label">Today</div><div class="score" style="font-size:34px" id="mn">--</div><p class="d" id="mt"></p></div>
+
+<h2 class="t" id="about">About</h2>
+<div class="card">
+  <p class="d" style="margin:0"><b style="color:#fff">Created &amp; Developed by Dishant Bhatia</b></p>
+  <a class="ig" href="https://www.instagram.com/skycast.ai/" target="_blank" rel="noopener noreferrer"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span><span><b>Official Instagram</b><small>SkyCast AI — official app account</small></span></a>
+  <a class="ig" href="https://www.instagram.com/dshnt.x/" target="_blank" rel="noopener noreferrer"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></span><span><b>Creator Instagram</b><small>Dishant Bhatia — creator's personal account</small></span></a>
+</div>
+<div class="brand"><div class="d" style="margin:0">Created &amp; Developed by Dishant Bhatia</div><div class="m">Made with ❤️ by Dishant Bhatia</div><div class="c">© 2026 SkyCast AI. All rights reserved.</div></div>
+</div>
+
+<footer>
+<button onclick="go('home')">⌂ Home</button><button onclick="go('forecast')">☀ Forecast</button><button onclick="go('sky')">🌌 Sky Map</button><button onclick="go('saved')">♡ Saved</button><button onclick="go('about')">ⓘ About</button>
+</footer>
+
+<script src="astro.js"></script>
 <script>
-const $=id=>document.getElementById(id);let place=null,weather=null,selectedTime='sunset';
-const savedKey='skycast_saved_v2';
-function say(t){$('status').textContent=t}
-function time12(s){if(!s)return'--';let d=new Date(s);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}
-function getSaved(){try{return JSON.parse(localStorage.getItem(savedKey)||'[]')}catch{return[]}}
-function drawSaved(){let box=$('saved');box.replaceChildren();let list=getSaved();if(!list.length){box.innerHTML='<span class="notice">Save your favourite cities for quick access.</span>';return}list.forEach(n=>{let b=document.createElement('button');b.className='chip';b.textContent='♥ '+n;b.onclick=()=>{$('city').value=n;searchCity()};box.appendChild(b)})}
-async function searchCity(){let q=$('city').value.trim();if(!q){say('Enter a city name first.');return}say('Finding city…');try{let r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&format=json&name='+encodeURIComponent(q));if(!r.ok)throw Error('Geocoding service unavailable');let g=await r.json();if(!g.results?.length)throw Error('City not found. Try another spelling.');let x=g.results[0];place={name:x.name,region:x.admin1||'',country:x.country||'',lat:x.latitude,lon:x.longitude};await loadWeather()}catch(e){say(e.message||'Could not find that city.')}}
-async function loadWeather(){if(!place)return;say('Loading live weather…');$('place').textContent=place.name+(place.region?', '+place.region:'')+(place.country?', '+place.country:'');try{const u=`https://api.open-meteo.com/v1/forecast?latitude=${place.lat}&longitude=${place.lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,cloud_cover,visibility,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,cloud_cover,visibility,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&forecast_days=7&timezone=auto`;let res=await fetch(u);if(!res.ok)throw Error('Weather service returned '+res.status);weather=await res.json();renderWeather();say('Updated just now · Open-Meteo');drawSaved();updateMoon();drawScene()}catch(e){say('Weather unavailable: '+(e.message||'network issue'));$('summary').textContent='Could not load live weather. Check your internet and try refresh.'}}
-function findHour(date,hour){if(!weather)return-1;let target=date+'T'+String(hour).padStart(2,'0')+':00';return weather.hourly.time.indexOf(target)}
-function renderWeather(){let d=weather.daily;let idx=0;let now=new Date();let localToday=now.toLocaleDateString('en-CA');let i=d.time.indexOf(localToday);if(i>=0)idx=i;let ss=d.sunset[idx],sr=d.sunrise[idx];$('sunset').textContent=time12(ss);$('sunrise').textContent=time12(sr);let key=ss?.slice(0,13)+':00',h=weather.hourly.time.indexOf(key);if(h<0)h=findHour(d.time[idx],18);let cl=h>=0?weather.hourly.cloud_cover[h]:weather.current?.cloud_cover;let hum=h>=0?weather.hourly.relative_humidity_2m[h]:weather.current?.relative_humidity_2m;let vis=h>=0?weather.hourly.visibility[h]/1000:(weather.current?.visibility??0)/1000;let rain=d.precipitation_probability_max[idx]??0;$('cloud').textContent=cl==null?'--':Math.round(cl)+'%';$('humidity').textContent=hum==null?'--':Math.round(hum)+'%';$('visibility').textContent=vis==null?'--':vis.toFixed(1)+' km';$('rain').textContent=rain+'%';let score=100;score-=cl<25?(25-cl)*.2:cl>65?(cl-65)*1.15:0;score-=Math.max(0,10-(vis||0))*2;score-=rain*.42;score=Math.max(0,Math.min(100,Math.round(score)));$('score').textContent=score;$('scorebar').style.width=score+'%';$('summary').textContent=score>=75?'Promising conditions for a colourful sunset. Look for breaks in the clouds near the horizon.':score>=50?'Mixed conditions: some colour is possible, but clouds or haze may reduce the view.':'The forecast suggests limited sunset visibility. Check the western horizon before heading out.';$('days').replaceChildren();d.time.forEach((date,j)=>{let row=document.createElement('div');row.className='forecast-day';let day=document.createElement('strong');day.textContent=new Date(date+'T12:00:00').toLocaleDateString([],{weekday:'short',day:'numeric',month:'short'});let desc=document.createElement('span');desc.className='muted';desc.textContent=`${Math.round(d.temperature_2m_min[j])}°–${Math.round(d.temperature_2m_max[j])}°C · Rain ${d.precipitation_probability_max[j]??'--'}%`;let sun=document.createElement('span');sun.className='right';sun.textContent='🌇 '+time12(d.sunset[j]);row.append(day,desc,sun);$('days').appendChild(row)});$('previewTime').value=ss?.slice(11,16)||'18:30';selectedTime='sunset';document.querySelectorAll('[data-time]').forEach(b=>b.classList.toggle('active',b.dataset.time===selectedTime))}
-function updateMoon(){let date=new Date();$('todayDate').textContent=date.toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'});let known=Date.UTC(2000,0,6,18,14),age=((date.getTime()-known)/86400000%29.530588+29.530588)%29.530588,illum=(1-Math.cos(2*Math.PI*age/29.530588))/2;let labels=['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'];let k=Math.floor(age/29.530588*8+.5)%8;$('moonName').textContent=labels[k];$('moonIllum').textContent=Math.round(illum*100)+'%';$('moonText').textContent='Approximate phase: '+labels[k].toLowerCase()+'. Moon visibility also depends on local time, horizon and cloud cover.';$('starTip').textContent=(weather?.current?.cloud_cover??50)<25?'Good if skies stay clear':'Check cloud cover'}
-function setTime(mode){selectedTime=mode;if(!weather)return;if(mode==='sunrise')$('previewTime').value=weather.daily.sunrise[0].slice(11,16);if(mode==='sunset')$('previewTime').value=weather.daily.sunset[0].slice(11,16);if(mode==='noon')$('previewTime').value='12:00';if(mode==='night')$('previewTime').value='22:00';document.querySelectorAll('[data-time]').forEach(b=>{b.classList.toggle('active',b.dataset.time===mode);b.classList.toggle('secondary',b.dataset.time!==mode)});drawScene()}
-function drawScene(){const c=$('skyCanvas'),ctx=c.getContext('2d');let rect=c.getBoundingClientRect();if(!rect.width)return;let dpr=Math.min(devicePixelRatio||1,2);c.width=Math.round(rect.width*dpr);c.height=Math.round(rect.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);let w=rect.width,h=rect.height;let t=$('previewTime').value||'18:30',hr=+t.split(':')[0]+(+t.split(':')[1]/60),isNight=hr<5||hr>=20,day=hr>=9&&hr<16,early=hr>=5&&hr<9,late=hr>=16&&hr<20;let top,mid,low;if(isNight){top='#061025';mid='#16264d';low='#6a4770'}else if(day){top='#3299dc';mid='#83c9ed';low='#d7e8f0'}else if(early){top='#244a82';mid='#e58a9a';low='#ffc17f'}else if(late){top='#312b65';mid='#e16c72';low='#ffbd78'}else{top='#101d3c';mid='#384a85';low='#d58b94'}let grad=ctx.createLinearGradient(0,0,0,h);grad.addColorStop(0,top);grad.addColorStop(.58,mid);grad.addColorStop(1,low);ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);let sunY=h*(day?.30:early?.68:late?.68:.42),sunX=w*(early?.24:late?.76:.53);if(!isNight){let glow=ctx.createRadialGradient(sunX,sunY,2,sunX,sunY,Math.min(w,h)*.48);glow.addColorStop(0,'rgba(255,224,155,.85)');glow.addColorStop(.35,'rgba(255,172,121,.24)');glow.addColorStop(1,'rgba(255,172,121,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);ctx.fillStyle=day?'#fff1bd':'#ffe4ae';ctx.beginPath();ctx.arc(sunX,sunY,day?17:13,0,Math.PI*2);ctx.fill()}else{for(let i=0;i<75;i++){let x=(i*83+31)%w,y=(i*47+13)%(h*.72);ctx.fillStyle=`rgba(255,255,255,${.25+(i%5)*.12})`;ctx.beginPath();ctx.arc(x,y,i%11===0?1.5:.7,0,7);ctx.fill()}ctx.fillStyle='#e6eaff';ctx.beginPath();ctx.arc(w*.74,h*.25,13,0,7);ctx.fill();ctx.fillStyle=top;ctx.beginPath();ctx.arc(w*.78,h*.22,12,0,7);ctx.fill()}let cloud=weather?.current?.cloud_cover??35,n=Math.round(cloud/100*6);for(let i=0;i<n;i++){let x=((i*147+45)%(w+120))-40,y=h*(.22+(i%3)*.12),scale=.65+(i%4)*.16;ctx.fillStyle=isNight?'rgba(20,30,57,.68)':day?'rgba(255,255,255,.42)':'rgba(55,48,81,.42)';ctx.beginPath();ctx.ellipse(x,y,38*scale,12*scale,0,0,7);ctx.ellipse(x+18*scale,y-9*scale,25*scale,17*scale,0,0,7);ctx.ellipse(x+39*scale,y,34*scale,13*scale,0,0,7);ctx.fill()}let ground=ctx.createLinearGradient(0,h*.78,0,h);ground.addColorStop(0,'#111a2c');ground.addColorStop(1,'#050914');ctx.fillStyle=ground;ctx.beginPath();ctx.moveTo(0,h*.82);ctx.quadraticCurveTo(w*.25,h*.74,w*.46,h*.84);ctx.quadraticCurveTo(w*.72,h*.91,w,h*.78);ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.fill();$('sceneTitle').textContent=isNight?'Night-sky visualisation':day?'Daylight visualisation':early?'Sunrise visualisation':late?'Sunset visualisation':'Twilight visualisation';$('sceneDesc').textContent=`${t} local preview · forecast cloud cover ${weather?.current?.cloud_cover??'unknown'}%`}
-$('searchBtn').addEventListener('click',searchCity);$('city').addEventListener('keydown',e=>{if(e.key==='Enter')searchCity()});$('refreshBtn').addEventListener('click',loadWeather);$('redraw').addEventListener('click',drawScene);$('previewTime').addEventListener('input',()=>{selectedTime='custom';drawScene()});document.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>setTime(b.dataset.time)));$('downloadPreview').addEventListener('click',()=>{drawScene();let a=document.createElement('a');a.download='skycast-sky-preview.png';a.href=$('skyCanvas').toDataURL('image/png');a.click()});
-$('saveBtn').addEventListener('click',()=>{if(!place)return;let a=getSaved();if(!a.includes(place.name))a.push(place.name);a=a.slice(-8);try{localStorage.setItem(savedKey,JSON.stringify(a))}catch{}drawSaved();$('saveBtn').textContent='♥ City saved'});
-$('gpsBtn').addEventListener('click',()=>{if(!navigator.geolocation){say('Location is not supported in this browser.');return}say('Requesting location permission…');navigator.geolocation.getCurrentPosition(async p=>{place={name:'My location',region:'',country:'',lat:p.coords.latitude,lon:p.coords.longitude};try{let r=await fetch(`https://geocoding-api.open-meteo.com/v1/reverse?latitude=${place.lat}&longitude=${place.lon}&language=en&format=json`);let g=await r.json();if(g.results?.[0]){let x=g.results[0];place.name=x.name;place.region=x.admin1||'';place.country=x.country||'';$('city').value=x.name}}catch{}await loadWeather()},()=>say('Location permission denied. Search for a city instead.'),{enableHighAccuracy:false,timeout:10000})});
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>$ (b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})));
-window.addEventListener('resize',drawScene);drawSaved();searchCity();
-</script>
-</body></html>
+const $=id=>document.getElementById(id);
+let place=null,wx=null,lastBlob=null;
+const go=id=>{(id==='saved'?$('saved'):$(id)).scrollIntoView({behavior:'smooth',block:'start'})};
+const t12=s=>{if(!s)return'--';let [h,m]=s.slice(11,16).split(':').map(Number);return(h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM')};
+function getSaved(){try{return JSON.parse(localStorage.getItem('sc_saved')||'[]')}catch(e){return[]}}
+function setSaved(a){try{localStorage.setItem('sc_saved',JSON.stringify(a))}catch(e){}}
+function drawSaved(){const a=getSaved(),box=$('saved');box.textContent='';
+  if(!a.length){box.innerHTML='<span class="d" style="margin:0">Saved cities appear here.</span>';return}
+  a.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent='♥ '+n;b.onclick=()=>{$('city').value=n;search()};box.appendChild(b)});
+  $('save').textContent=place&&a.includes(place.name)?'♥ Saved':'♡ Save'}
+function toggleSave(){if(!place)return;let a=getSaved();a=a.includes(place.name)?a.filter(x=>x!==place.name):[...a,place.name].slice(-8);setSaved(a);drawSaved()}
+
+async function search(){
+  const q=$('city').value.trim();if(!q){$('msg').textContent='Please enter a city.';return}
+  $('msg').textContent='Loading forecast…';$('place').textContent=q;
+  try{
+    const g=await(await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&name='+encodeURIComponent(q))).json();
+    if(!g.results)throw new Error('City not found. Check the spelling.');
+    const r=g.results[0];place={name:r.name,lat:r.latitude,lon:r.longitude};$('skylink').href='skymap.html?lat='+r.latitude+'&lon='+r.longitude+'&name='+encodeURIComponent(r.name);
+    const u='https://api.open-meteo.com/v1/forecast?latitude='+r.latitude+'&longitude='+r.longitude+'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&hourly=cloud_cover,visibility,relative_humidity_2m&forecast_days=7&timezone=auto';
+    const res=await fetch(u);if(!res.ok)throw new Error('Weather service error ('+res.status+').');
+    wx=await res.json();
+    $('place').textContent=r.name+(r.admin1?', '+r.admin1:'')+(r.country?', '+r.country:'');
+    $('date').innerHTML='';wx.daily.time.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=new Date(d+'T12:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});$('date').appendChild(o)});
+    $('date').value=1;render();days();drawSaved();
+  }catch(e){wx=null;$('score').textContent='--';['ss','sr','cl','hu','vi','pr'].forEach(k=>$(k).textContent='--');
+    $('msg').textContent='Forecast unavailable: '+(e.message||'network error')+' Nothing is shown as real data.';$('days').innerHTML='<p class="d">Forecast unavailable.</p>'}
+}
+function cond(i){
+  const d=wx.daily,h=wx.hourly,ss=d.sunset[i];if(!ss)return null;
+  const k=h.time.indexOf(ss.slice(0,13)+':00');if(k<0)return null;
+  const v=h.visibility[k];
+  return{ss,sr:d.sunrise[i],cloud:h.cloud_cover[k],hum:h.relative_humidity_2m[k],vis:v==null?null:v/1000,rain:d.precipitation_probability_max[i],date:d.time[i]}
+}
+function render(){
+  if(!wx)return;const c=cond(+$('date').value);
+  if(!c||c.cloud==null||c.vis==null){$('score').textContent='--';$('msg').textContent='Forecast data is unavailable for this date.';return}
+  $('ss').textContent=t12(c.ss);$('sr').textContent=t12(c.sr);$('cl').textContent=Math.round(c.cloud)+'%';$('hu').textContent=Math.round(c.hum)+'%';$('vi').textContent=c.vis.toFixed(1)+' km';$('pr').textContent=(c.rain==null?'--':c.rain+'%');
+  let s=100;s-=c.cloud<30?(30-c.cloud)*.6:c.cloud>60?(c.cloud-60)*1.2:0;s-=c.vis<10?(10-c.vis)*2:0;s-=(c.rain||0)*.4;
+  s=Math.max(0,Math.min(100,Math.round(s)));$('score').textContent=s;syncT();
+  $('msg').textContent=s>=70?'Good chance of a colourful sky.':s>=45?'Decent, some colour possible.':'Likely a dull or blocked sunset.';
+}
+function days(){const d=wx.daily;$('days').innerHTML='';
+  d.time.forEach((t,i)=>{const e=document.createElement('div');e.className='day';
+    const b=document.createElement('b');b.textContent=new Date(t+'T12:00').toLocaleDateString(undefined,{weekday:'short',day:'numeric'});
+    const s=document.createElement('span');s.textContent=Math.round(d.temperature_2m_min[i])+'–'+Math.round(d.temperature_2m_max[i])+'°C · rain '+(d.precipitation_probability_max[i]??'--')+'% · sunset '+t12(d.sunset[i]);
+    e.append(b,s);$('days').appendChild(e)})}
+
+function genCount(){try{const d=new Date().toDateString(),o=JSON.parse(localStorage.getItem('sc_gen')||'{}');return o.d===d?o.n:0}catch(e){return 0}}
+function genBump(){try{localStorage.setItem('sc_gen',JSON.stringify({d:new Date().toDateString(),n:genCount()+1}))}catch(e){}}
+const GEN_LIMIT=5;
+function showErr(m){$('gmsg').innerHTML='';const s=document.createElement('div');s.className='err';s.textContent=m;$('gmsg').appendChild(s);$('retry').style.display='inline-block'}
+// ---- time of the preview ----
+let tmode='sunset';
+const hm=s=>s.slice(11,16),mins=s=>{const[a,b]=s.split(':').map(Number);return a*60+b};
+function syncT(){if(!wx)return;const i=+$('date').value;
+  if(tmode==='sunset')$('gtime').value=hm(wx.daily.sunset[i]);else if(tmode==='sunrise')$('gtime').value=hm(wx.daily.sunrise[i]);
+  else if(tmode==='noon')$('gtime').value='12:00';else if(tmode==='night')$('gtime').value='22:00';
+  ['sunrise','noon','sunset','night'].forEach(k=>$('t-'+k).classList.toggle('on',tmode===k))}
+function setT(m){tmode=m;if(m==='custom')['sunrise','noon','sunset','night'].forEach(k=>$('t-'+k).classList.remove('on'));else syncT()}
+function condAt(i,t){const d=wx.daily,h=wx.hourly;let[H,M]=t.split(':').map(Number);if(M>=30)H=Math.min(23,H+1);
+  const k=h.time.indexOf(d.time[i]+'T'+String(H).padStart(2,'0')+':00');if(k<0)return null;const v=h.visibility[k];
+  return{cloud:h.cloud_cover[k],hum:h.relative_humidity_2m[k],vis:v==null?null:v/1000,rain:d.precipitation_probability_max[i]}}
+function scene(c,sm,morning){
+  const a=sm.sunAlt,cl=c.cloud;let s;
+  if(a>35)s='bright midday daylight, high sun';
+  else if(a>10)s=morning?'bright morning light':'warm late-afternoon light';
+  else if(a>2)s=morning?'sunrise golden hour, low warm sun':'golden hour just before sunset, low warm sun';
+  else if(a>-2)s=morning?'the sun rising at the horizon':'the sun setting at the horizon';
+  else if(a>-6)s=morning?'dawn twilight with a pink and orange horizon glow':'dusk afterglow with orange and purple horizon colours';
+  else if(a>-12)s=morning?'pre-dawn blue hour, deep blue sky, last fading stars':'blue hour, deep blue twilight sky, first stars appearing';
+  else if(a>-18)s='astronomical twilight, almost dark sky full of stars';
+  else s='night sky';
+  const night=a<-12,sky=cl<15?'clear sky':cl<45?'scattered clouds':cl<80?'broken clouds':'heavy overcast sky';
+  let extra='';
+  if(night){const bright=sm.moonAlt>5&&sm.moonIllum>.6;extra=cl>80?', thick clouds hiding the stars':cl>45?', stars peeking between clouds':bright?', many bright stars':', thousands of sharp stars and the Milky Way';
+    if(sm.moonAlt>5){const il=sm.moonIllum;extra+=', '+(il<.15?'a thin crescent moon':il<.4?'a crescent moon':il<.65?'a half moon':il<.9?'a gibbous moon':'a bright full moon')+' above the horizon'}}
+  else if(a>-6&&a<10&&cl>=15&&cl<80)extra=', clouds lit with warm orange and pink colours';
+  return{text:s+', '+sky+extra,label:s}}
+function generate(){
+  if(!wx){$('gmsg').innerHTML='<span class="err">Search a city first.</span>';return}
+  const i=+$('date').value,t=$('gtime').value;
+  if(!t){showErr('Choose a time for the preview.');return}
+  const c=condAt(i,t);
+  if(!c||c.cloud==null||c.vis==null){showErr('Weather data is unavailable for this date and time, so no image was made.');return}
+  if(genCount()>=GEN_LIMIT){showErr('Daily limit of '+GEN_LIMIT+' previews reached on this device. Try again tomorrow.');return}
+  const[y,mo,da]=wx.daily.time[i].split('-').map(Number),[H,M]=t.split(':').map(Number);
+  const utc=Date.UTC(y,mo-1,da,H,M)-(wx.utc_offset_seconds||0)*1000;
+  const sm=Astro.sunMoonAt(utc,place.lat,place.lon);
+  const morning=mins(t)<(mins(hm(wx.daily.sunrise[i]))+mins(hm(wx.daily.sunset[i])))/2;
+  const sc=scene(c,sm,morning),haze=c.vis<5?'hazy, low visibility':c.vis<10?'slightly hazy air':'crisp clear air';
+  const city=place.name.replace(/[^\p{L}\p{N} ,.'-]/gu,'').slice(0,60);
+  const prompt='Photorealistic landscape photo near '+city+' at '+t+' local time: '+sc.text+', '+haze+(c.rain>50?', damp rainy mood':'')+(c.hum>80?', humid atmosphere':'')+'. Wide angle, high detail, no text, no people.';
+  const url='https://image.pollinations.ai/prompt/'+encodeURIComponent(prompt)+'?width=768&height=512&nologo=true&seed='+Math.floor(Math.random()*1e6);
+  $('gen').disabled=true;$('bar').style.display='block';
+  $('gmsg').textContent='Creating image for '+t+' ('+sc.label+'; sun '+Math.round(sm.sunAlt)+'°, cloud '+Math.round(c.cloud)+'%, visibility '+c.vis.toFixed(1)+' km)… this can take up to a minute.';
+  $('retry').style.display=$('dlb').style.display=$('cap').style.display=$('img').style.display='none';
+  const im=new Image();
+  const timer=setTimeout(()=>{im.src='';fail('The image service took too long. Try again.')},90000);
+  function fail(m){clearTimeout(timer);showErr(m);$('gen').disabled=false;$('bar').style.display='none'}
+  im.onload=()=>{clearTimeout(timer);genBump();$('img').src=url;$('dl').href=url;$('dl').target='_blank';
+    $('img').style.display='block';$('cap').style.display='block';$('dlb').style.display='inline-block';
+    $('gmsg').innerHTML='<span class="ok">Image ready for '+t+'. If Download opens the image, press and hold it to save.</span>';
+    $('gen').disabled=false;$('bar').style.display='none';
+    fetch(url).then(r=>r.blob()).then(b=>{$('dl').href=URL.createObjectURL(b);$('dl').removeAttribute('target')}).catch(()=>{})};
+  im.onerror=()=>fail('Image service is unavailable right now. No image was generated. Try again later.');
+  im.src=url;
+}
+
+function moon(){const age=((Date.now()-Date.UTC(2000,0,6,18,14))/864e5)%29.530588,a=(age+29.530588)%29.530588;
+  const n=['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'][Math.floor((a/29.530588*8)+.5)%8];
+  const il=Math.round((1-Math.cos(2*Math.PI*a/29.530588))/2*100);
+  $('mn').textContent=n+' · '+il+'%';$('mt').textContent=il<25?'Dark moon: good for stargazing and the Milky Way.':il>75?'Bright moon washes out faint stars, but is great for the Moon itself.':'Moderate moonlight: fine for planets and bright stars.'}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
+moon();drawSaved();search();
+</script></body></html>
